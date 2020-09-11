@@ -1,0 +1,276 @@
+commit c5b37671481d54bbd3a8449a0ae2dd39acb6a632
+Author: Griffin Heyrich <gheyrich@csa1.bu.edu>
+Date:   Tue Sep 8 13:25:40 2020 -0400
+
+    added switch statement to deal with each month
+
+diff --git a/assignment-1.c b/assignment-1.c
+index e393a16..20596f6 100644
+--- a/assignment-1.c
++++ b/assignment-1.c
+@@ -9,6 +9,48 @@ int main() {
+     int month, day;
+ 
+     printf("Enter date (mm/dd): ");
++    scanf("%d/%d", &month, &day); //scan for month and day
++        if ((day > 31 || day < 1) || (month > 12 || month < 1) ){ //check to see if valid 
++            return 1; 
++        }
++        if (month == 2 && day > 28) { //is valid in feb
++            return 1; 
++        }
++        switch(month){ //switch statement to send to certain month
++            case 1 : printf("No class");
++            break;
++            case 2 : printf("No class");
++            break;
++            case 3 : printf("No class");
++            break;
++            case 4 : printf("No class");
++            break;
++            case 5 : printf("No class");
++            break;
++            case 6 : printf("No class");
++            break;
++            case 7 : printf("No class");
++            break;
++            case 8 : printf("No class");
++            break;
++            case 9 : if(day == 3 || day == 8 || day == 10 || day == 15 || day == 17 || day == 22 || day == 24 || day == 29){
++                    printf("Lecture.");
++                }
++                if (day == 14 || day == 21 || day ==28){
++                    printf("Discussion");
++                }
++                if (day == 7){
++                    printf("Labor Day.");
++                }
++            break;
++            case 10 : 
++            break;
++            case 11 : 
++            break;
++            case 12: 
++            break;
++        }
++
+     // ADD Your code.  Be sure your output matches exactly.  
+     // Check using reference binary
+     // new comment
+
+commit 88787e1c754faff0e8a19cf244149e588179a0f4
+Author: Griffin Heyrich <gheyrich@csa1.bu.edu>
+Date:   Mon Sep 7 13:56:37 2020 -0400
+
+    added comment
+
+diff --git a/assignment-1.c b/assignment-1.c
+index 2a5f404..e393a16 100644
+--- a/assignment-1.c
++++ b/assignment-1.c
+@@ -11,7 +11,7 @@ int main() {
+     printf("Enter date (mm/dd): ");
+     // ADD Your code.  Be sure your output matches exactly.  
+     // Check using reference binary
+-
++    // new comment
+ 
+     return 0;
+ }
+
+commit 1e59975d52f5755b472af95ec0644a91ca77cdf5
+Author: Jonathan Appavoo <jappavoo@bu.edu>
+Date:   Thu Sep 3 22:21:22 2020 -0400
+
+    Initial Commit to seed assignment 1.  First Fall 2020 CS210 Assignment.  Have fun!
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..0135fc2
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++*
++!assignment-1.c
++!gitlog.txt
++
+diff --git a/.vscode/launch.json b/.vscode/launch.json
+new file mode 100644
+index 0000000..6eac52b
+--- /dev/null
++++ b/.vscode/launch.json
+@@ -0,0 +1,30 @@
++{
++    // Use IntelliSense to learn about possible attributes.
++    // Hover to view descriptions of existing attributes.
++    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
++    "version": "0.2.0",
++    "configurations": [
++    
++
++        {
++            "name": "(gdb) Launch",
++            "type": "cppdbg",
++            "request": "launch",
++            "program": "${workspaceFolder}/assignment-1",
++            "args": [],
++            "stopAtEntry": true,
++            "cwd": "${workspaceFolder}",
++            "environment": [],
++            "externalConsole": false,
++            "MIMode": "gdb",
++            "setupCommands": [
++                {
++                    "description": "Enable pretty-printing for gdb",
++                    "text": "-enable-pretty-printing",
++                    "ignoreFailures": true
++                }
++            ],
++            "preLaunchTask": "Build"
++        }
++    ]
++}
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+new file mode 100644
+index 0000000..0c5101a
+--- /dev/null
++++ b/.vscode/settings.json
+@@ -0,0 +1,21 @@
++{
++    "git.ignoreLegacyWarning": true,
++    "files.autoSave": "afterDelay",
++    "files.exclude": {
++        ".vscode": true,
++        "**/*.o": true,
++        "reference": true,
++        "assignment-1": true,
++        "test.sh":true,
++        "gitlog.txt":true,
++        ".gitignore":true
++    },
++    "editor.renderControlCharacters": true,
++    "C_Cpp.default.cStandard": "c99",
++    "C_Cpp.default.cppStandard": "gnu++11",
++    "C_Cpp.default.defines": [],
++    "C_Cpp.intelliSenseEngine": "Disabled",
++    "C_Cpp.workspaceParsingPriority": "low",
++    "C_Cpp.intelliSenseCacheSize": 100,
++    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true
++}
+\ No newline at end of file
+diff --git a/.vscode/tasks.json b/.vscode/tasks.json
+new file mode 100644
+index 0000000..d02618f
+--- /dev/null
++++ b/.vscode/tasks.json
+@@ -0,0 +1,28 @@
++{
++    // See https://go.microsoft.com/fwlink/?LinkId=733558
++    // for the documentation about the tasks.json format
++    "version": "2.0.0",
++    "tasks": [
++        {
++            "label": "Build",
++            "type": "shell",
++            "command": "make",
++            "options": {
++                "cwd": "${workspaceFolder}"
++            },
++            "group": {
++                "kind": "build",
++                "isDefault": true
++            },
++            "presentation": {
++                "reveal": "always",
++                "panel": "shared"
++            },
++            "problemMatcher": {
++                "base": "$gcc",
++                "fileLocation": ["relative", "${workspaceRoot}/"]
++            }
++        }
++        
++    ]
++}
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..65aee1e
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,15 @@
++.PHONY: all clean test gitlog
++
++all: assignment-1
++
++assignment-1: assignment-1.c
++	${CC} -std=c99 -g assignment-1.c -o assignment-1
++	
++test: assignment-1 gitlog
++	./test.sh
++
++gitlog:
++	git log -p > gitlog.txt
++	
++clean:
++	-${RM} assignment-1
+\ No newline at end of file
+diff --git a/assignment-1.c b/assignment-1.c
+new file mode 100644
+index 0000000..2a5f404
+--- /dev/null
++++ b/assignment-1.c
+@@ -0,0 +1,17 @@
++/**
++ * Assignment #1: Expressions and selection statements.
++ * This program prints the CS 210 schedule for a given date in the Fall'20 Semester.
++ **/
++
++#include <stdio.h>
++
++int main() {
++    int month, day;
++
++    printf("Enter date (mm/dd): ");
++    // ADD Your code.  Be sure your output matches exactly.  
++    // Check using reference binary
++
++
++    return 0;
++}
+diff --git a/gitlog.txt b/gitlog.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/reference b/reference
+new file mode 100755
+index 0000000..57867fc
+Binary files /dev/null and b/reference differ
+diff --git a/test.sh b/test.sh
+new file mode 100755
+index 0000000..350356d
+--- /dev/null
++++ b/test.sh
+@@ -0,0 +1,23 @@
++#!/bin/bash
++DATECMD=/bin/date
++START="2020-09-02"
++NUM=101
++
++out=$(for ((i=0; i<$NUM; i++)); do  
++#   ${DATECMD} -d "${START} +${i} days" +"%a %D %m/%d" 
++   ${DATECMD} -d "${START} +${i} days" +"%m/%d" 
++done | while read input; do
++  echo -n "Testing $input: "
++  solution="$(echo $input | ./reference)"
++  answer="$(echo $input | ./assignment-1)"
++  if [[ "$solution" == "$answer" ]]; then
++     echo "CORRECT"
++  else 
++     echo "WRONG: answer for $input is suppose to be: '$solution' not '$answer'"
++  fi
++done) 
++
++correct=$(echo "$out" | grep 'CORRECT$' | wc -l)
++total=$NUM
++echo "$out"
++echo "score: $correct/$total"
+\ No newline at end of file
